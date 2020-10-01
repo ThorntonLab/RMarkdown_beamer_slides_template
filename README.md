@@ -44,6 +44,38 @@ If you use a `vim`-like editor, then execute this command when in `normal` mode:
 1. Get a new `beamer` theme, add it to your repository and commit it.
 2. Change `theme:` in the `YAML` block at the top of your `Rmd` file.
 
+### Converting to another output format
+
+Change `output:` in the `YAML` block of the `Rmd` file.
+For example, to get a `slidy` `HTML` presentation:
+
+```
+output: slidy_presentation
+```
+
+Once you change the output format, the `theme:` is no longer relevant and can be deleted from the `YAML` block.
+
+Other things probably change as well:
+
+* You may want to avoid using figure/table captions and cross references.
+  Doing so is probably fine--they're a bit over the top for most presentations.
+* Using `kable` for tables now requires some nuance, as you need to do different things for `HTML` output, etc..  
+  The way to do this is to use the functions `knitr::is_html_output` and `knitr::is_latex_output`.
+
+To generate *both* `PDF` and `HTML` output, you can make changes like this to the `Makefile`.
+First, add an `html` output file target:
+
+```
+SLIDES:=PresentationSlides.pdf PresentationSlides.html
+```
+
+Then, add a build pattern to convert `Rmd` to `html`:
+
+```
+%.html: %.Rmd
+	R --no-save --quiet -e "rmarkdown::render('$<', output_format='slidy_presentation')"
+```
+
 ### Configuring the LaTeX 
 
 1. Add your changes to `preamble.tex`.
