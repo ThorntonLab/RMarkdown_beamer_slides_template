@@ -17,7 +17,14 @@ At the very least:
 
 1. Rename `PresentationSlides.Rmd` to whatever you want it to be
 2. Rename the value of the `SLIDES` variable in `Makefile` to match your new `Rmd` file name.
-3. Write your slides!
+3. Remove `Model.png` and the contents of `references.bib`.
+4. Update `Makefile` to reflect removing `Model.png`
+5. Write your slides!
+
+If you add external images to this repository that will be graphics for slides:
+
+1. Commit them!
+2. Add them to the `IMAGES` variable in `Makefile` so that your slides rebuild if they change.
 
 ### Building your presentation
 
