@@ -2,6 +2,10 @@
 
 ## To use this repository
 
+Click `Use this template` from the `GitHub` interface.
+Choose a name for your new repository.
+You will get a copy of this repository with all the files but none of the commit history.
+
 ## Required R packages
 
 It is probably helpful to make sure all of your packages are up to date!
