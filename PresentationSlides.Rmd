@@ -1,0 +1,140 @@
+---
+title: "Presentation title"
+author: Author list
+institute: Author institutions
+output:
+    beamer_presentation:
+        latex_engine: xelatex
+        includes:
+            in_header: preamble.tex
+bibliography: references.bib
+theme: metropolis
+classoption: "aspectratio=169"
+---
+
+```{r setup, include=FALSE}
+library(kableExtra)
+library(magrittr) # For the %>% pipe operator
+library(reticulate) # For Python
+use_python("/usr/bin/python3", required=T)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# This is a slide title
+
+* Content
+
+## subsection
+
+* More content
+
+# Slide with code
+
+```{r, echo=TRUE}
+x = 3
+y = 2
+print(x**y)
+```
+
+# Slide with code used to generate output
+
+```{r, echo=F}
+x = 4
+y = 3
+```
+
+`r x` raised to the power of `r y` equals `r x**y`.
+
+# Slide with Python code
+
+```{python, echo=TRUE}
+import numpy as np
+x = np.arange(10)
+print(x)
+```
+
+
+# Slide with an image
+
+The caption for this image is generated from another `R` variable.
+It is easier to do it this way sometimes.
+
+```{r, echo=F}
+caption="Gaussian stabilizing selection"
+```
+
+```{r model1, echo=F, out.width="50%", fig.align="center", fig.cap=caption}
+knitr::include_graphics("Model.png")
+```
+
+# Two-column slide and cross-references
+
+:::::: {.columns}
+
+::: {.column width="30%"}
+
+```{r, echo=F}
+caption='Same as Figure \\ref{fig:model1}'
+```
+
+```{r model2, echo=F, out.width="100%", fig.align="center", fig.cap=caption}
+knitr::include_graphics("Model.png")
+```
+
+:::
+
+::: {.column width="5%"}
+\ 
+<!-- an empty Div (with a white space), serving as
+a column separator -->
+:::
+
+::: {.column width="60%"}
+
+Figures \ref{fig:model1} and \ref{fig:model2} are the same.
+
+Comments:
+
+* You need to manually write `Figure` or `Table`.
+* You need to escape backslashes when doing references in a caption.
+
+:::
+::::::
+
+# Slide with R graphics
+
+```{r, echo=F}
+caption="R base graphics"
+```
+
+```{r rgraphics, echo=F, out.width="50%", fig.cap=caption}
+plot(seq(1:1:10), seq(1:1:10))
+```
+
+# Slide with Python graphics
+
+For some reason, you need to provide the caption as part of the code fence when generating Python graphics.
+
+```{python pygraphics, echo=F, out.width="50%", fig.cap="Graphics with matplotlib"}
+import matplotlib.pyplot as plt
+plt.plot(x, x)
+```
+
+# Slide with fancy tables
+
+Warning: `knitr::kable` can be a bit frustrating.
+You can have conflicts with your preamble.
+
+```{r kabletable, echo=F}
+dt <- mtcars[1:5, 1:6]
+knitr::kable(dt, format="latex", caption="Table caption.") %>%
+    kable_styling(position="center")
+```
+
+# Citation
+
+Having a blank slide at the end with the title "References" will put the detailed bibliography at the end.
+
+See [@Robertson1956-wn] for details.
+
+# References
